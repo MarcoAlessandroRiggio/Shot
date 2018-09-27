@@ -17,9 +17,9 @@ public class ShotterList extends LinkedList<Shotter> {
     }
 
     public LinkedList<Shotter> getShotters() {
-        LinkedList<Shotter> formattedShotters = new LinkedList<>(this.shotters);
+        final LinkedList<Shotter> formattedShotters = new LinkedList<>(this.shotters);
         formattedShotters.add(new Shotter("total",
-                this.shotters.stream().mapToInt(Shotter::getRecord).sum()));
+                this.shotters.stream().mapToLong(Shotter::getRecord).sum()));
         return formattedShotters;
     }
 

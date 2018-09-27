@@ -54,7 +54,7 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:id="@+id/textView7"
+                            android:id="@+id/UserLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
@@ -62,7 +62,7 @@
                             android:textColor="@android:color/white" />
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/UserRecord"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
