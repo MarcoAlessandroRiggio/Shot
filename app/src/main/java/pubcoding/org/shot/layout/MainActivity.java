@@ -30,6 +30,7 @@ import pubcoding.org.shot.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final int REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         final GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account == null) {
             this.acquireUser();
-            FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+            FirebaseMessaging.getInstance().subscribeToTopic(getString(R.string.TopicNotification));
         }
         else this.loadOverviewLayout();
     }
@@ -62,13 +63,13 @@ public class MainActivity extends AppCompatActivity
                 .build();
         final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         final Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, 100);
+        startActivityForResult(signInIntent, REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             this.loadOverviewLayout();
         }
     }
