@@ -18,4 +18,6 @@
     <string name="SeagullMessage">Qualcuno sta garrendo!?</string>
     <string name="UserRecord">user record:</string>
     <string name="Record">record</string>
+    <string name="TopicNotification">pushNotifications</string>
+    <string name="flamingo_s_record">Flamingo\'s record:</string>
 </resources>
