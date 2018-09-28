@@ -34,7 +34,7 @@ public class OverviewFragment extends Fragment {
     private DatabaseReference firebase;
     private GoogleSignInAccount account;
     private SummaryAdapter summaryAdapter;
-
+    private TextView userRecord;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class OverviewFragment extends Fragment {
         this.firebase = FirebaseDatabase.getInstance().getReference();
         this.account = GoogleSignIn.getLastSignedInAccount(view.getContext());
         this.summaryAdapter = new SummaryAdapter(view.getContext());
+        this.userRecord = view.findViewById(R.id.UserRecord);
         initializeSnapshotCard(view);
         initializeButtons();
     }
@@ -68,14 +69,18 @@ public class OverviewFragment extends Fragment {
                         Map<String, Object> properties = (Map<String, Object>) mutation.getValue();
                         summaryAdapter.addItem(new Message(Objects.requireNonNull(properties)));
                     });
-                    final TextView textView = view.findViewById(R.id.UserRecord);
-                    textView.setText(String.valueOf(summaryAdapter.getItem(Objects.requireNonNull(account).getGivenName()).getRecord()));
+                    // FIXME BAD PLACE
+                    setUserRecord();
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+
+    private void setUserRecord() {
+        this.userRecord.setText(String.valueOf(summaryAdapter.getItem(Objects.requireNonNull(account).getGivenName()).getRecord()));
     }
 
     private void initializeUserSummary(@NonNull View view) {
@@ -98,6 +103,7 @@ public class OverviewFragment extends Fragment {
                         Map<String, Object> properties = (Map<String, Object>) mutation.getValue();
                         summaryAdapter.updateItem(new Message(Objects.requireNonNull(properties)));
                     });
+                    setUserRecord();
                 }
             }
             @Override
@@ -122,7 +128,9 @@ public class OverviewFragment extends Fragment {
     private void initializeAddButton() {
         Objects.requireNonNull(getActivity())
                 .findViewById(R.id.AddShotButton)
-                .setOnClickListener(view -> this.modifyShotterOnFirebase(view, 1, R.string.AddShotMessage));
+                .setOnClickListener(view -> {
+                    this.modifyShotterOnFirebase(view, 1, R.string.AddShotMessage);
+                });
     }
 
     private void modifyShotterOnFirebase(View view, long variation, @StringRes int messageForUser) {

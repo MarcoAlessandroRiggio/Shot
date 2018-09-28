@@ -13,13 +13,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import pubcoding.org.shot.R;
 
@@ -43,7 +48,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         final GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account == null) this.acquireUser();
+        if (account == null) {
+            this.acquireUser();
+            FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+        }
         else this.loadOverviewLayout();
     }
 
