@@ -13,6 +13,7 @@ public class LogFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.log_activity, container, false);
+        //TODO
     }
 
 }

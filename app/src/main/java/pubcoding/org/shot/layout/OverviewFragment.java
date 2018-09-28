@@ -53,14 +53,13 @@ public class OverviewFragment extends Fragment {
     }
 
     private void initializeSnapshotCard(@NonNull View view) {
-        initializeComplexSummary(view);
+        initializeComplexSummary();
         addDatabaseListener();
-        initializeUserSummary(view);
         final ListView summaryList = view.findViewById(R.id.SummaryList);
         summaryList.setAdapter(this.summaryAdapter);
     }
 
-    private void initializeComplexSummary(@NonNull View view) {
+    private void initializeComplexSummary() {
         this.firebase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -69,8 +68,7 @@ public class OverviewFragment extends Fragment {
                         Map<String, Object> properties = (Map<String, Object>) mutation.getValue();
                         summaryAdapter.addItem(new Message(Objects.requireNonNull(properties)));
                     });
-                    // FIXME BAD PLACE
-                    setUserRecord();
+                    setRecord();
                 }
             }
             @Override
@@ -79,13 +77,12 @@ public class OverviewFragment extends Fragment {
         });
     }
 
-    private void setUserRecord() {
-        this.userRecord.setText(String.valueOf(summaryAdapter.getItem(Objects.requireNonNull(account).getGivenName()).getRecord()));
+    private void setRecord() {
+        this.userRecord.setText(String.valueOf(getTotalShot()));
     }
 
-    private void initializeUserSummary(@NonNull View view) {
-        final TextView textView = view.findViewById(R.id.UserLabel);
-        textView.setText(Objects.requireNonNull(this.account).getGivenName());
+    private long getTotalShot() {
+        return summaryAdapter.getElements().stream().mapToLong(Shotter::getRecord).sum();
     }
 
     private void initializeButtons() {
@@ -103,7 +100,7 @@ public class OverviewFragment extends Fragment {
                         Map<String, Object> properties = (Map<String, Object>) mutation.getValue();
                         summaryAdapter.updateItem(new Message(Objects.requireNonNull(properties)));
                     });
-                    setUserRecord();
+                    setRecord();
                 }
             }
             @Override

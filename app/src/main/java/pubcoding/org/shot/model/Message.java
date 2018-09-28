@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Message {
+    private static final String USER = "user";
+    private static final String DATE = "date";
+    private static final String VALUE = "value";
 
     private String user;
     private Long value;
@@ -22,15 +25,15 @@ public class Message {
         this.value = value;
     }
     public Message(Map<String, Object> properties) {
-        this.user = (String) properties.get("user");
-        this.value = (Long) properties.get("value");
+        this.user = (String) properties.get(USER);
+        this.value = (Long) properties.get(VALUE);
     }
 
     public Map<String, Object> createMessageObj() {
         Map<String, Object> messageObj = new HashMap<>();
-        messageObj.put("date", ServerValue.TIMESTAMP);
-        messageObj.put("user", this.user);
-        messageObj.put("value", this.value);
+        messageObj.put(DATE, ServerValue.TIMESTAMP);
+        messageObj.put(USER, this.user);
+        messageObj.put(VALUE, this.value);
 
         return messageObj;
     }
