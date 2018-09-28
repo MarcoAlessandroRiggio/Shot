@@ -10,6 +10,7 @@
 
 This application is written with Android Studio and use Firebase and Google Service.
 The goal of the application is count the number of [Montenegro's](https://en.wikipedia.org/wiki/Amaro_Montenegro) shot.
+An example of firebase project for the server is [Shot-BackEnd](https://github.com/MarcoAlessandroRiggio/Shot-BackEnd).
 This application is write for play with friends and it have some problem:
 1. You must add a default record in firebase realtime cloud for each user like this:
 >  {
