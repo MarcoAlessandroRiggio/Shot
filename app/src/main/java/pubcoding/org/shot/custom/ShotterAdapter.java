@@ -4,28 +4,24 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.media.UnsupportedSchemeException;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import pubcoding.org.shot.R;
 import pubcoding.org.shot.model.Message;
 import pubcoding.org.shot.model.Shotter;
 
-public class SummaryAdapter extends BaseAdapter {
+public abstract class SummaryAdapter extends BaseAdapter {
     private static final String SCULO = "Sculo.";
 
     private List<Shotter> data;
     private static LayoutInflater inflater = null;
 
-    public SummaryAdapter(Context context) {
+    SummaryAdapter(Context context) {
         super();
         this.data = new LinkedList<>();
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -47,20 +43,11 @@ public class SummaryAdapter extends BaseAdapter {
         for (int i = 0; i < this.data.size(); i++) {
             if (this.data.get(i).getName().equals(name))
                 return this.data.get(i);
-        } throw new Resources.NotFoundException();
+        }
+        throw new Resources.NotFoundException();
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View vi = convertView;
-        if (vi == null)
-            vi = inflater.inflate(R.layout.summary_row, null);
-        TextView text = vi.findViewById(R.id.header);
-        text.setText(data.get(position).getName());
-        text = vi.findViewById(R.id.text);
-        text.setText(String.valueOf(data.get(position).getRecord()));
-        return vi;
-    }
+    LayoutInflater getInflater() { return inflater; }
 
     public void updateItem(Message message) {
         final Shotter updatedShotter = new Shotter(message);
@@ -78,5 +65,7 @@ public class SummaryAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public List<Shotter> getElements() { return this.data; }
+    public List<Shotter> getElements() {
+        return this.data;
+    }
 }
