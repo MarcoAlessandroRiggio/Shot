@@ -45,4 +45,6 @@ public abstract class AbstractAdapter<T extends Nominable> extends BaseAdapter {
         data.add(item);
         notifyDataSetChanged();
     }
+
+    public void clear() { this.data.clear(); }
 }

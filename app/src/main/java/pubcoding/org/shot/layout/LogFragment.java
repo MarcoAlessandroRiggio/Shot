@@ -53,10 +53,11 @@ public class LogFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Shotter item = (Shotter) spinnerAdapter.getItem(position);
                 List<Log> logs = item.getLog();
+                logAdapter.clear();
                 if (logs != null) {
                     logs.forEach(log -> logAdapter.addItem(log));
-                    logAdapter.notifyDataSetChanged();
                 }
+                logAdapter.notifyDataSetChanged();
             }
 
             @Override
