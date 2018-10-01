@@ -16,21 +16,19 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
-import java.util.Map;
 import java.util.Objects;
 
 import pubcoding.org.shot.R;
-import pubcoding.org.shot.custom.ShotterAdapter;
-import pubcoding.org.shot.custom.ShotterSnapshot;
+import pubcoding.org.shot.custom.SnapshotAdapter;
 import pubcoding.org.shot.firebase.FirebaseWrapper;
 import pubcoding.org.shot.model.Message;
 import pubcoding.org.shot.model.Shotter;
 
 public class OverviewFragment extends Fragment {
 
-    private FirebaseWrapper firebaseWrapper;
+    private FirebaseWrapper database;
     private GoogleSignInAccount account;
-    private ShotterAdapter shotterAdapter;
+    private SnapshotAdapter snapshotAdapter;
     private TextView userRecord;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,9 +39,9 @@ public class OverviewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.firebaseWrapper = FirebaseWrapper.getFirebase();
+        this.database = FirebaseWrapper.getFirebase();
         this.account = GoogleSignIn.getLastSignedInAccount(view.getContext());
-        this.shotterAdapter = new ShotterSnapshot(view.getContext());
+        this.snapshotAdapter = new SnapshotAdapter(view.getContext());
         this.userRecord = view.findViewById(R.id.UserRecord);
         initializeSnapshotCard(view);
         initializeButtons();
@@ -53,15 +51,15 @@ public class OverviewFragment extends Fragment {
         initializeComplexSummary();
         addDatabaseListener();
         final ListView summaryList = view.findViewById(R.id.SummaryList);
-        summaryList.setAdapter(this.shotterAdapter);
+        summaryList.setAdapter(this.snapshotAdapter);
     }
 
     private void initializeComplexSummary() {
-        this.firebaseWrapper.addListenerForInitialStatus(dataSnapshot -> {
+        this.database.addListenerForInitialStatus(dataSnapshot -> {
             if (dataSnapshot.exists()) {
                 dataSnapshot.getChildren().forEach(snapshot -> {
-                    Map<String, Object> properties = (Map<String, Object>) snapshot.getValue();
-                    shotterAdapter.addItem(new Message(Objects.requireNonNull(properties)));
+                    Message message = snapshot.getValue(Message.class);
+                    snapshotAdapter.addItem(message);
                 });
                 setRecord();
             }
@@ -73,7 +71,7 @@ public class OverviewFragment extends Fragment {
     }
 
     private long getTotalShot() {
-        return shotterAdapter.getElements().stream().mapToLong(Shotter::getRecord).sum();
+        return snapshotAdapter.getElements().stream().mapToLong(Shotter::getRecord).sum();
     }
 
     private void initializeButtons() {
@@ -83,11 +81,11 @@ public class OverviewFragment extends Fragment {
     }
 
     private void addDatabaseListener() {
-        this.firebaseWrapper.addDataChangeListner(dataSnapshot -> {
+        this.database.addDataChangeListner(dataSnapshot -> {
             if (dataSnapshot.exists()) {
                 dataSnapshot.getChildren().forEach(mutation -> {
-                    Map<String, Object> properties = (Map<String, Object>) mutation.getValue();
-                    shotterAdapter.updateItem(new Message(Objects.requireNonNull(properties)));
+                    Message message = mutation.getValue(Message.class);
+                    snapshotAdapter.updateItem(Objects.requireNonNull(message));
                 });
                 setRecord();
             }
@@ -115,11 +113,11 @@ public class OverviewFragment extends Fragment {
     }
 
     private void modifyShotterOnFirebase(View view, long variation, @StringRes int messageForUser) {
-        final Shotter user = this.shotterAdapter.getItem(this.account.getGivenName());
+        final Shotter user = (Shotter) this.snapshotAdapter.getItem(this.account.getGivenName());
         final Message message = new Message(user);
-        this.firebaseWrapper.updateChild(
-                Objects.requireNonNull(this.account.getGivenName()),
-                message.createMessageObj(variation, messageForUser),
+        message.updateValue(variation, messageForUser);
+        this.database.updateChild(
+                Objects.requireNonNull(this.account.getGivenName()), message,
                 task -> Toast.makeText(view.getContext(), messageForUser, Toast.LENGTH_SHORT)
                         .show()
         );

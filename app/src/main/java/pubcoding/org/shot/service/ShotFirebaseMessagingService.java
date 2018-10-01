@@ -26,7 +26,6 @@ public class ShotFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-
     private void sendNotification(String notificationTitle, String notificationBody) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

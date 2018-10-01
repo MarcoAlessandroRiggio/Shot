@@ -5,24 +5,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.LinkedList;
+
 import pubcoding.org.shot.R;
+import pubcoding.org.shot.model.Shotter;
 
-public class SummarySnapshot extends SummaryAdapter {
+public class SpinnerAdapter extends ShotterAdapter {
 
-    public SummarySnapshot(Context context) {
-        super(context);
+
+    public SpinnerAdapter(Context context) {
+        super(context, new LinkedList<Shotter>());
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (vi == null)
-            vi = getInflater().inflate(R.layout.summary_row, null);
-        TextView text = vi.findViewById(R.id.header);
+            vi = getInflater().inflate(R.layout.spinner_row, null);
+        TextView text = vi.findViewById(R.id.text);
         text.setText(getElements().get(position).getName());
-        text = vi.findViewById(R.id.text);
-        text.setText(String.valueOf(getElements().get(position).getRecord()));
         return vi;
     }
-
 }

@@ -20,4 +20,6 @@
     <string name="Record">record</string>
     <string name="TopicNotification">pushNotifications</string>
     <string name="flamingo_s_record">Flamingo\'s record:</string>
+    <string name="_0">0</string>
+    <string name="error_message">Something went wrong. Sculo.</string>
 </resources>

@@ -1,44 +1,43 @@
 package pubcoding.org.shot.model;
 
-import com.google.firebase.database.ServerValue;
+import android.support.annotation.StringRes;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Message {
-    private static final String USER = "user";
-    private static final String DATE = "date";
-    private static final String VALUE = "value";
 
     private String user;
     private Long value;
-    private Long date;
+    private List<Log> log;
 
-    public Message(String user, Long date, Long value) {
-        this.user = user;
-        this.date = date;
-        this.value = value;
+    public Message() { }
+
+    public Message(Shotter user) {
+        this.user = user.getName();
+        this.value = user.getRecord();
+        this.log = user.getLog();
     }
 
-    public Message(String user, Long value) {
-        this.user = user;
-        this.value = value;
-    }
-    public Message(Map<String, Object> properties) {
-        this.user = (String) properties.get(USER);
-        this.value = (Long) properties.get(VALUE);
+    public String getUser() {
+        return this.user;
     }
 
-    public Map<String, Object> createMessageObj() {
-        Map<String, Object> messageObj = new HashMap<>();
-        messageObj.put(DATE, ServerValue.TIMESTAMP);
-        messageObj.put(USER, this.user);
-        messageObj.put(VALUE, this.value);
-
-        return messageObj;
+    public Long getValue() {
+        return this.value;
     }
 
-    public String getUser() { return user; }
+    public List<Log> getLog() {
+        return this.log;
+    }
 
-    public Long getValue() { return value; }
+    public void updateValue(long variation, @StringRes int description) {
+        this.value += variation;
+        updateLog(description);
+    }
+
+    private void updateLog(int description) {
+        if (this.log == null) this.log = new LinkedList<>();
+        this.log.add(Log.createNewLog(description));
+    }
 }
