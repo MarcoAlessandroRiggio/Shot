@@ -19,7 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import java.util.Objects;
 
 import pubcoding.org.shot.R;
-import pubcoding.org.shot.custom.SnapshotAdapter;
+import pubcoding.org.shot.adapter.SnapshotAdapter;
 import pubcoding.org.shot.firebase.FirebaseWrapper;
 import pubcoding.org.shot.model.Message;
 import pubcoding.org.shot.model.Shotter;

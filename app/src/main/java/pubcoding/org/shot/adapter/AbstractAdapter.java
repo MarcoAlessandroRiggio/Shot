@@ -1,4 +1,4 @@
-package pubcoding.org.shot.custom;
+package pubcoding.org.shot.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Objects;
 
 import pubcoding.org.shot.R;
-import pubcoding.org.shot.custom.LogAdapter;
-import pubcoding.org.shot.custom.SpinnerAdapter;
+import pubcoding.org.shot.adapter.LogAdapter;
+import pubcoding.org.shot.adapter.SpinnerAdapter;
 import pubcoding.org.shot.firebase.FirebaseWrapper;
 import pubcoding.org.shot.model.Log;
 import pubcoding.org.shot.model.Message;
