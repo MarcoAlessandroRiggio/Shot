@@ -1,5 +1,7 @@
 # Shot
 
+[![Build Status](https://travis-ci.com/MarcoAlessandroRiggio/Shot.svg?branch=master)](https://travis-ci.com/MarcoAlessandroRiggio/Shot)
+
 *" Scusi*
   *che ne pensa di un romantico alla Scala?*<br>
   *quando canta le canzoni della mala scola*<br>
