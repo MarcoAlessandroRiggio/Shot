@@ -32,5 +32,7 @@ cache:
     - $HOME/.android/build-cache
 
 script:
-  - gradle --daemon wrapper --gradle-version 4.10.2 --distribution-type all
+  - ./gradlew --version
+  - ./gradlew wrapper --gradle-version 4.10.2
+  - ./gradlew -v
   - ./gradlew clean build 
