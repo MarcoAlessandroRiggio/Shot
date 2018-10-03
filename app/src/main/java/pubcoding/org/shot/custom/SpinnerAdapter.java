@@ -5,16 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.LinkedList;
-
 import pubcoding.org.shot.R;
-import pubcoding.org.shot.model.Shotter;
 
 public class SpinnerAdapter extends ShotterAdapter {
 
 
     public SpinnerAdapter(Context context) {
-        super(context, new LinkedList<Shotter>());
+        super(context);
     }
 
     @Override

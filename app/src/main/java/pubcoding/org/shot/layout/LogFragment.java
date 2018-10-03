@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,6 +30,7 @@ public class LogFragment extends Fragment {
     private SpinnerAdapter spinnerAdapter;
     private LogAdapter logAdapter;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.log_activity, container, false);
     }
@@ -53,16 +55,16 @@ public class LogFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Shotter item = (Shotter) spinnerAdapter.getItem(position);
                 List<Log> logs = item.getLog();
-                logAdapter.clear();
                 if (logs != null) {
-                    logs.forEach(log -> logAdapter.addItem(log));
+                    logAdapter.setElements(logs);
                 }
                 logAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(parent.getContext(), R.string.error_message, Toast.LENGTH_SHORT)
+                        .show();
             }
         });
     }

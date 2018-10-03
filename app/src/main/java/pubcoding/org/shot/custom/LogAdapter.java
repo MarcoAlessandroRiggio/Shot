@@ -11,12 +11,12 @@ import java.util.List;
 import pubcoding.org.shot.R;
 import pubcoding.org.shot.model.Log;
 
-public class LogAdapter extends AbstractAdapter {
+public class LogAdapter extends AbstractAdapter<Log> {
 
-    private Context context;
+    private final Context context;
 
     public LogAdapter(Context context) {
-        super(context, new LinkedList<Log>());
+        super(context, new LinkedList<>());
         this.context = context;
     }
 

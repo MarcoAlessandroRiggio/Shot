@@ -4,13 +4,10 @@ import android.support.annotation.StringRes;
 
 import java.util.Date;
 
-import pubcoding.org.shot.custom.Nominable;
-
-public class Log implements Nominable {
+public class Log {
 
     private String date;
-    private @StringRes
-    int message;
+    private @StringRes int message;
 
     public Log() {}
 
@@ -20,7 +17,7 @@ public class Log implements Nominable {
     }
 
     static Log createNewLog(@StringRes int message) {
-        return new Log(new Date().toGMTString(), message);
+        return new Log(new Date().toString(), message);
     }
 
     public String getDate() {
@@ -32,6 +29,4 @@ public class Log implements Nominable {
         return message;
     }
 
-    @Override
-    public boolean equals(String date) { return this.date.equals(date); }
 }

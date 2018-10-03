@@ -31,6 +31,7 @@ public class OverviewFragment extends Fragment {
     private SnapshotAdapter snapshotAdapter;
     private TextView userRecord;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.overview_activity, container, false);
@@ -81,7 +82,7 @@ public class OverviewFragment extends Fragment {
     }
 
     private void addDatabaseListener() {
-        this.database.addDataChangeListner(dataSnapshot -> {
+        this.database.addDataChangeListener(dataSnapshot -> {
             if (dataSnapshot.exists()) {
                 dataSnapshot.getChildren().forEach(mutation -> {
                     Message message = mutation.getValue(Message.class);
@@ -113,7 +114,7 @@ public class OverviewFragment extends Fragment {
     }
 
     private void modifyShotterOnFirebase(View view, long variation, @StringRes int messageForUser) {
-        final Shotter user = (Shotter) this.snapshotAdapter.getItem(this.account.getGivenName());
+        final Shotter user = this.snapshotAdapter.getItem(this.account.getGivenName());
         final Message message = new Message(user);
         message.updateValue(variation, messageForUser);
         this.database.updateChild(

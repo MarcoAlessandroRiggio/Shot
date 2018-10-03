@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import pubcoding.org.shot.R;
@@ -14,9 +13,7 @@ import pubcoding.org.shot.model.Shotter;
 
 public class SnapshotAdapter extends ShotterAdapter {
 
-    public SnapshotAdapter(Context context) {
-        super(context, new LinkedList<Shotter>());
-    }
+    public SnapshotAdapter(Context context) { super(context); }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -34,7 +31,7 @@ public class SnapshotAdapter extends ShotterAdapter {
         final Shotter updatedShotter = new Shotter(message);
         final List<Shotter> elements = getElements();
         for (int i = 0; i < elements.size(); i++) {
-            if (elements.get(i).equals(updatedShotter.getName())) {
+            if (elements.get(i).getName().equals(updatedShotter.getName())) {
                 elements.set(i, updatedShotter);
                 notifyDataSetChanged();
             }

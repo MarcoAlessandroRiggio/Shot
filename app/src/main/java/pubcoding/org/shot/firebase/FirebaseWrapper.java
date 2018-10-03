@@ -2,6 +2,7 @@ package pubcoding.org.shot.firebase;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.database.DataSnapshot;
@@ -13,7 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 public class FirebaseWrapper {
 
     private static FirebaseWrapper instance;
-    private DatabaseReference database;
+    private final DatabaseReference database;
 
     private FirebaseWrapper() {
         this.database = FirebaseDatabase.getInstance().getReference();
@@ -33,32 +34,37 @@ public class FirebaseWrapper {
                 .addOnCompleteListener(completionHandler);
     }
 
-    public void addListenerForInitialStatus(@NonNull final DataChangeListner dataChangeListner) {
+    public void addListenerForInitialStatus(@NonNull final DataChangeListener dataChangeListener) {
         this.database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataChangeListner.onDataChange(dataSnapshot);
+                dataChangeListener.onDataChange(dataSnapshot);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // TODO
+                logError(1);
             }
         });
     }
 
-    public void addDataChangeListner(@NonNull final DataChangeListner dataChangeListner) {
+    public void addDataChangeListener(@NonNull final DataChangeListener dataChangeListener) {
         this.database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataChangeListner.onDataChange(dataSnapshot);
+                dataChangeListener.onDataChange(dataSnapshot);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // TODO
+                logError(2);
             }
         });
+    }
+
+    private void logError(int i) {
+        Log.println(Log.ERROR, "Very bad error", "Sculo");
+        System.exit(-i);
     }
 
 }
