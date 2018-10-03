@@ -13,7 +13,9 @@ import pubcoding.org.shot.model.Shotter;
 
 public class SnapshotAdapter extends ShotterAdapter {
 
-    public SnapshotAdapter(Context context) { super(context); }
+    public SnapshotAdapter(Context context) {
+        super(context);
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
