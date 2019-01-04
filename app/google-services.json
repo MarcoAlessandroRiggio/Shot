@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "1007703070616",
+    "firebase_url": "https://shot-73342.firebaseio.com",
+    "project_id": "shot-73342",
+    "storage_bucket": "shot-73342.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007703070616:android:9eb8559e2e54b1d3",
+        "android_client_info": {
+          "package_name": "pubcoding.org"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007703070616-obb7kej2nt5378p0cea0i22r9hg08m5b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcgXckJr6xYjMr1vLSKqU69b9dGNjSWaI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007703070616:android:1ecb5fd7158db88f",
+        "android_client_info": {
+          "package_name": "pubcoding.org.shot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007703070616-obb7kej2nt5378p0cea0i22r9hg08m5b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcgXckJr6xYjMr1vLSKqU69b9dGNjSWaI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
